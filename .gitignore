@@ -35,3 +35,7 @@ build/local-config.mk
 .*.swp
 
 .idea
+
+.classpath
+.settings
+dist/
