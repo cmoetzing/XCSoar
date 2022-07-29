@@ -555,6 +555,7 @@ public:
    */
   void LoadValue(unsigned i, int value) noexcept;
 
+
   /**
    * Load an unsigned value into a #DataFieldInteger.
    */
@@ -562,6 +563,7 @@ public:
     LoadValue(i, static_cast<int>(value));
   }
 
+  void LoadValues(unsigned i, int value, int min, int max, int step) noexcept;
   void LoadValue(unsigned i, bool value) noexcept;
   void LoadValueEnum(unsigned i, const TCHAR *text) noexcept;
   void LoadValueEnum(unsigned i, unsigned value) noexcept;

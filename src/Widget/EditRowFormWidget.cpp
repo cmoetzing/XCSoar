@@ -254,6 +254,19 @@ RowFormWidget::LoadValue(unsigned i, int value) noexcept
 }
 
 void
+RowFormWidget::LoadValues(unsigned i, int value, int min, int max, int step) noexcept
+{
+  WndProperty &control = GetControl(i);
+  DataFieldInteger &df = *(DataFieldInteger *)control.GetDataField();
+  assert(df.GetType() == DataField::Type::INTEGER);
+  df.SetValue(value);
+  df.SetMin(min);
+  df.SetMax(max);
+  df.SetStep(step);
+  control.RefreshDisplay();
+}
+
+void
 RowFormWidget::LoadValue(unsigned i, bool value) noexcept
 {
   WndProperty &control = GetControl(i);
