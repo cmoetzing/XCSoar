@@ -68,6 +68,7 @@ doc/html/advanced/input/ALL  http://xcsoar.sourceforge.net/advanced/input/
 #include "Form/DataField/File.hpp"
 #include "Dialogs/FilePicker.hpp"
 #include "net/client/WeGlide/UploadIGCFile.hpp"
+#include "Kobo/BlueFlyVarioDialog.hpp"
 
 #include <cassert>
 #include <tchar.h>
@@ -569,6 +570,8 @@ InputEvents::eventSetup(const TCHAR *misc)
     dlgPlanesShowModal();
   else if (StringIsEqual(misc, _T("Profile")))
     ProfileListDialog();
+  else if (StringIsEqual(misc, _T("BlueFly")))
+    ShowBlueFlyVarioDialog();
   else if (StringIsEqual(misc, _T("Alternates")))
     dlgAlternatesListShowModal();
 
