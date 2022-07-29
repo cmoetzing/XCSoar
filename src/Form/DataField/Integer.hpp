@@ -38,12 +38,20 @@ public:
     max = _max;
   }
 
+  void SetStep(int _step) noexcept {
+    step = _step;
+  }
+
   int GetMin() const noexcept {
     return min;
   }
 
   int GetMax() const noexcept {
     return max;
+  }
+
+  int GetStep() const noexcept {
+    return step;
   }
 
   int GetValue() const noexcept {
