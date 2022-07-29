@@ -563,7 +563,8 @@ XCSOAR_SOURCES := \
 	$(SRC)/Monitor/AllMonitors.cpp \
 	\
 	$(SRC)/Hardware/PowerGlobal.cpp \
-	$(SRC)/Hardware/Battery.cpp
+	$(SRC)/Hardware/Battery.cpp \
+	$(SRC)/Kobo/BlueFlyVarioDialog.cpp
 
 $(call SRC_TO_OBJ,$(SRC)/Dialogs/Inflate.cpp): CPPFLAGS += $(ZLIB_CPPFLAGS)
 
