@@ -8,6 +8,9 @@
 #include "util/Compiler.h"
 #include "Resources.hpp"
 #include "Version.hpp"
+#ifdef KOBO
+#include "Kobo/Model.hpp"
+#endif
 
 #include <algorithm>
 
@@ -150,7 +153,15 @@ LogoView::draw(Canvas &canvas, const PixelRect &rc) noexcept
   canvas.Select(font);
 #endif
 
+  int margin_x = 2;
+  int margin_y = 2;
   canvas.SetTextColor(COLOR_BLACK);
   canvas.SetBackgroundTransparent();
-  canvas.DrawText({2, 2}, XCSoar_ProductToken);
+  canvas.DrawText({margin_x, margin_y}, XCSoar_ProductToken);
+
+#ifdef KOBO
+  PixelSize ts = canvas.CalcTextSize(XCSoar_ProductToken);
+  margin_y = 2 + margin_y + ts.height;
+  canvas.DrawText({margin_x, margin_y}, GetKoboModelName());
+#endif
 }
