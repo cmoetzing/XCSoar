@@ -30,3 +30,7 @@ DetectKoboModel() noexcept;
 [[gnu::const]]
 const char *
 GetKoboWifiInterface() noexcept;
+
+[[gnu::const]]
+const char *
+GetKoboModelName() noexcept;

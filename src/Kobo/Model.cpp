@@ -85,3 +85,38 @@ GetKoboWifiInterface() noexcept
       return "eth0";
   }
 }
+
+const char *
+GetKoboModelName() noexcept
+{
+  switch (DetectKoboModel())
+    {
+      case KoboModel::MINI:
+        return "Kobo Mini";
+      case KoboModel::TOUCH:
+        return "Kobo Touch";
+      case KoboModel::TOUCH2:
+        return "Kobo Touch 2";
+      case KoboModel::AURA:
+        return "Kobo Aura";
+      case KoboModel::AURA2:
+        return "Kobo Aura 2";
+      case KoboModel::GLO:
+        return "Kobo Glo";
+      case KoboModel::GLO_HD:
+        return "Kobo Glo HD";
+      case KoboModel::CLARA_HD:
+        return "Kobo Clara HD";
+      case KoboModel::CLARA_2E:
+        return "Kobo Clara 2e";
+      case KoboModel::NIA:
+        return "Kobo Nia";
+      case KoboModel::LIBRA2:
+        return "Kobo Libra 2";
+      case KoboModel::LIBRA_H2O:
+        return "Kobo Libra H2O";
+      default:
+        return "Unknown";
+    }
+}
+
