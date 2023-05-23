@@ -7,26 +7,15 @@
 
 /**
  * A class that can enumerate TTY devices on Linux and other POSIX
- * systems, by reading directory entries in /dev/.
+ * systems, by reading directory entries in /sys/class/tty.
  */
 class TTYEnumerator {
   DIR *dir;
   char path[64];
 
 public:
-#ifdef __linux__
-  /* on Linux, enumerate /sys/class/tty/ which is faster than /dev/
-     (searches only the TTY character devices) and shows only the
-     ports that really exist */
-  /* but use /dev because there is no noticable downside, and it
-   * allows for custom port mapping using udev file
-   */
   TTYEnumerator() noexcept
-    :dir(opendir("/dev")) {}
-#else
-  TTYEnumerator() noexcept
-    :dir(opendir("/dev")) {}
-#endif
+    :dir(opendir("/sys/class/tty")) {}
 
   ~TTYEnumerator() noexcept {
     if (dir != nullptr)

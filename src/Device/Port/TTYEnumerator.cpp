@@ -7,32 +7,44 @@
 #include "system/FileUtil.hpp"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
+#include <sys/stat.h>
+#include <tchar.h>
+#include <libgen.h>
+
+static bool
+IsDirectory(const char *path) noexcept
+{
+  struct stat st;
+  return stat(path, &st) == 0 && S_ISDIR(st.st_mode);
+}
 
 [[gnu::pure]]
 static bool
 CheckTTYName(const char *name) noexcept
 {
-  /* filter "/dev/tty*" */
-  if (const char *t = StringAfterPrefix(name, "tty"); t != nullptr) {
-    if (*t == 0)
-      /* ignore /dev/tty */
-      return false;
-
-    /* ignore virtual internal ports on Mac OS X (and probably other
-       BSDs) */
-    if (*t >= 'p' && *t <= 'w')
-      return false;
-
-    /* filter out "/dev/tty0", ... (valid integer after "tty") */
-    if (IsDigitASCII(*t))
-      return false;
-
+  /*
+   * rfcomm devices do not have a 'device/driver' file that is used
+   * to exclude virtual/pseudo terminals
+   */
+  if (StringStartsWith(name, "rfcomm"))
     return true;
-  } else if (StringStartsWith(name, "rfcomm"))
+
+  /*
+   * we assume only entries with existing 'device/driver' folder
+   * aren't virtual/pseudo terminals, as they are associated with a
+   * kernel driver
+   */
+  const char *driver_format = "/sys/class/tty/%s/device/driver";
+  char driver[128];
+  if (snprintf(driver, sizeof(driver), driver_format, name) >= (int)sizeof(driver))
+    return false; // ignore truncated file path
+
+  if (IsDirectory(driver))
     return true;
-  else
-    return false;
+
+  return false;
 }
 
 const char *
